@@ -1,5 +1,104 @@
 # Cluster Kubernetes Raspberry Pi 4
 
+
+## Execução de experimentos
+
+Cada experimento segue os passos abaixo:
+- Iniciar os pods do ycsb-benchmark, depois os pods do cluster Casssandra
+- Carregar o workload Cassandra
+- Executar as repetições
+- Parar os pods Cassandra e remover os volumes de storage
+
+Resumindos os passos fazendo apenas 1 repetição:
+```
+$ ssh pi@rpicloud
+pi@rpicloud:~ $ kubectl delete -f cassandra/cassandra-statefulset.yaml
+pi@rpicloud:~ $ kubectl delete persistentvolumeclaim -l app=cassandra
+pi@rpicloud:~ $ kubectl delete pod ycsb-benchmark
+pi@rpicloud:~ $ kubectl create -f ycsb/benchmark.yml
+pi@rpicloud:~ $ kubectl create -f cassandra/cassandra-statefulset.yaml
+pi@rpicloud:~ $ kubectl exec -it cassandra-0 -- nodetool status
+pi@rpicloud:~/ycsb $ kubectl exec -i --tty ycsb-benchmark  -- bash
+root@ycsb-benchmark:/# /scripts/cassandra_load.sh cassandra-0.cassandra.default.svc.cluster.local a 100000 13 3
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 1 3
+root@ycsb-benchmark:/# exit
+pi@rpicloud:~ $ 
+```
+
+Os experimentos devem ter pelo menos 30 repetições em cada configuração. Por exemplo, rodar um experimentos com tamanho `1000000`, workload `a`, `13` nós  e `3` replicas:
+```
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 1 3
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 2 3
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 3 3
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 4 3
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 5 3
+........
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 30 3
+```
+Os resultados ficam disponíveis no diretório de saida:
+```
+pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-1.txt 
+pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-2.txt 
+pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-3.txt 
+....
+pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-30.txt 
+```
+
+A [dissertação do Lucas Ferreira](https://repositorio.ufsm.br/handle/1/26668) usou os parêmtros de execução:
+- Tamanho: 1000000
+- Workloads: a b c d
+- Replicas: 1, 2 e 3
+- Nós: 15
+
+A métrica considerada será a média da **vazão** (ops/sec) que aparece como na linha abaixo:
+```
+[OVERALL], Throughput(ops/sec), 2.6705193358952517
+```
+
+O script abaixo foi usado para resumir os resultados dos experimentos. Ele gera um CSV com outras informações para gerar os gráficos de resultados. Note que ele não faz qualquer análise estatística:
+```sh
+#!/bin/bash
+
+sizes="1000000 "
+replicas="1 2 3"
+runtime="cassandra hbase citus"
+
+echo "DB,Replication,Index,Workload,Size,RunTime,Throughput,ReadLatency,WriteLatency"
+for rt in $runtime
+do
+  for w in a b c d
+  do
+    for s in $sizes
+    do
+      for rf in $replicas
+      do
+        for i in $(seq 1 30)
+        do
+          arquivo=
+          if [ "$rt" = "citus" ]; then
+            # citus-exec-14-1000000-d-6-rf_1-bs_7000-fs_3000.txt
+            arquivo="$rt-exec-14-${s}-${w}-${i}-rf_${rf}-bs_7000-fs_3000.txt"
+          else
+    #      hbase-exec-15-1000000-b-22-rf_1.txt
+            arquivo="$rt-exec-15-${s}-${w}-${i}-rf_${rf}.txt"
+          fi
+          tempo=$(grep RunTime $arquivo | cut -d ',' -f3)
+          vazao=$(grep Throughput $arquivo | cut -d ',' -f3)
+          leitura=$(grep "\[READ\]" $arquivo |grep AverageLatency|cut -d ',' -f3)
+          escrita=$(grep -e "\[UPDATE\]" -e "\[INSERT\]" $arquivo |grep AverageLatency |cut -d ',' -f3)
+          #echo out-15-${s}-${w}-${i}.txt $w,$s,$tempo,$vazao,$leitura,$escrita | sed 's/ //g'
+          echo $rt,$rf,$i,$w,$s,$tempo,$vazao,$leitura,$escrita | sed 's/ //g'
+        done
+      done
+    done
+  done
+done
+```
+
+
+Os detalhes de cada passo são descritos abaixo.
+
+
 ## Arquitetura
 
 O cluster tem 15 nós no total:
@@ -468,97 +567,3 @@ spec:
 ```
 O armazenamento será criado em cada nó físico que o pod executar.
 
-
-## Execução de experimentos
-
-Cada experimento segue os passos abaixo:
-- Iniciar os pods do ycsb-benchmark, depois os pods do cluster Casssandra
-- Carregar o workload Cassandra
-- Executar as repetições
-- Parar os pods Cassandra e remover os volumes de storage
-
-Resumindos os passos fazendo apenas 1 repetição:
-```
-$ ssh pi@rpicloud
-pi@rpicloud:~ $ kubectl delete -f cassandra/cassandra-statefulset.yaml
-pi@rpicloud:~ $ kubectl delete persistentvolumeclaim -l app=cassandra
-pi@rpicloud:~ $ kubectl delete pod ycsb-benchmark
-pi@rpicloud:~ $ kubectl create -f ycsb/benchmark.yml
-pi@rpicloud:~ $ kubectl create -f cassandra/cassandra-statefulset.yaml
-pi@rpicloud:~ $ kubectl exec -it cassandra-0 -- nodetool status
-pi@rpicloud:~/ycsb $ kubectl exec -i --tty ycsb-benchmark  -- bash
-root@ycsb-benchmark:/# /scripts/cassandra_load.sh cassandra-0.cassandra.default.svc.cluster.local a 100000 13 3
-root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 1 3
-root@ycsb-benchmark:/# exit
-pi@rpicloud:~ $ 
-```
-
-Os experimentos devem ter pelo menos 30 repetições em cada configuração. Por exemplo, rodar um experimentos com tamanho `1000000`, workload `a`, `13` nós  e `3` replicas:
-```
-root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 1 3
-root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 2 3
-root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 3 3
-root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 4 3
-root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 5 3
-........
-root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 30 3
-```
-Os resultados ficam disponíveis no diretório de saida:
-```
-pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-1.txt 
-pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-2.txt 
-pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-3.txt 
-....
-pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-30.txt 
-```
-
-A [dissertação do Lucas Ferreira](https://repositorio.ufsm.br/handle/1/26668) usou os parêmtros de execução:
-- Tamanho: 1000000
-- Workloads: a b c d
-- Replicas: 1, 2 e 3
-- Nós: 15
-
-A métrica considerada será a média da **vazão** (ops/sec) que aparece como na linha abaixo:
-```
-[OVERALL], Throughput(ops/sec), 2.6705193358952517
-```
-
-O script abaixo foi usado para resumir os resultados dos experimentos. Ele gera um CSV com outras informações para gerar os gráficos de resultados. Note que ele não faz qualquer análise estatística:
-```sh
-#!/bin/bash
-
-sizes="1000000 "
-replicas="1 2 3"
-runtime="cassandra hbase citus"
-
-echo "DB,Replication,Index,Workload,Size,RunTime,Throughput,ReadLatency,WriteLatency"
-for rt in $runtime
-do
-  for w in a b c d
-  do
-    for s in $sizes
-    do
-      for rf in $replicas
-      do
-        for i in $(seq 1 30)
-        do
-          arquivo=
-          if [ "$rt" = "citus" ]; then
-            # citus-exec-14-1000000-d-6-rf_1-bs_7000-fs_3000.txt
-            arquivo="$rt-exec-14-${s}-${w}-${i}-rf_${rf}-bs_7000-fs_3000.txt"
-          else
-    #      hbase-exec-15-1000000-b-22-rf_1.txt
-            arquivo="$rt-exec-15-${s}-${w}-${i}-rf_${rf}.txt"
-          fi
-          tempo=$(grep RunTime $arquivo | cut -d ',' -f3)
-          vazao=$(grep Throughput $arquivo | cut -d ',' -f3)
-          leitura=$(grep "\[READ\]" $arquivo |grep AverageLatency|cut -d ',' -f3)
-          escrita=$(grep -e "\[UPDATE\]" -e "\[INSERT\]" $arquivo |grep AverageLatency |cut -d ',' -f3)
-          #echo out-15-${s}-${w}-${i}.txt $w,$s,$tempo,$vazao,$leitura,$escrita | sed 's/ //g'
-          echo $rt,$rf,$i,$w,$s,$tempo,$vazao,$leitura,$escrita | sed 's/ //g'
-        done
-      done
-    done
-  done
-done
-```
