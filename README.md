@@ -221,7 +221,7 @@ UN  10.42.18.26  137.5 KiB   16      14.9%             6ea118bc-d38d-4be5-8c75-3
 
 A remoção dos pods pode ser feita pelo comando:
 ```
-kubectl delete -f cassandra/cassandra-statefulset.yaml
+pi@rpicloud:~ $ kubectl delete -f cassandra/cassandra-statefulset.yaml
 ```
 Para remover os volumes de armazenamento criados pelo Cassandra:
 ```
@@ -345,7 +345,7 @@ spec:
 ```
 Esse pod irá rodar no nó `rpicloud`:
 ```
-pi@rpicloud:~ $ kubectl create -f benchmark.yml
+pi@rpicloud:~ $ kubectl create -f ycsb/benchmark.yml
 ```
 
 Abra um terminal dentro do pod:
@@ -470,6 +470,28 @@ O armazenamento será criado em cada nó físico que o pod executar.
 
 
 ## Execução de experimentos
+
+Cada experimento segue os passos abaixo:
+- Iniciar os pods do ycsb-benchmark, depois os pods do cluster Casssandra
+- Carregar o workload Cassandra
+- Executar as repetições
+- Parar os pods Cassandra e remover os volumes de storage
+
+Resumindos os passos fazendo apenas 1 repetição:
+```
+$ ssh pi@rpicloud
+pi@rpicloud:~ $ kubectl delete -f cassandra/cassandra-statefulset.yaml
+pi@rpicloud:~ $ kubectl delete persistentvolumeclaim -l app=cassandra
+pi@rpicloud:~ $ kubectl delete pod ycsb-benchmark
+pi@rpicloud:~ $ kubectl create -f ycsb/benchmark.yml
+pi@rpicloud:~ $ kubectl create -f cassandra/cassandra-statefulset.yaml
+pi@rpicloud:~ $ kubectl exec -it cassandra-0 -- nodetool status
+pi@rpicloud:~/ycsb $ kubectl exec -i --tty ycsb-benchmark  -- bash
+root@ycsb-benchmark:/# /scripts/cassandra_load.sh cassandra-0.cassandra.default.svc.cluster.local a 100000 13 3
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 1 3
+root@ycsb-benchmark:/# exit
+pi@rpicloud:~ $ 
+```
 
 Os experimentos devem ter pelo menos 30 repetições em cada configuração. Por exemplo, rodar um experimentos com tamanho `1000000`, workload `a`, `13` nós  e `3` replicas:
 ```
