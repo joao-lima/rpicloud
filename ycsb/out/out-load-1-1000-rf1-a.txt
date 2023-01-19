@@ -1,0 +1,61 @@
+/usr/local/openjdk-11/bin/java -cp /opt/ycsb/slf4j-api-1.7.30.jar:/opt/ycsb/slf4j-simple-1.7.30.jar:/opt/ycsb/jdbc-binding/lib/postgresql-42.2.14.jar:/opt/ycsb/cassandra-binding/conf:/opt/ycsb/conf:/opt/ycsb/lib/core-0.18.0-SNAPSHOT.jar:/opt/ycsb/lib/HdrHistogram-2.1.4.jar:/opt/ycsb/lib/htrace-core4-4.1.0-incubating.jar:/opt/ycsb/lib/jackson-core-asl-1.9.4.jar:/opt/ycsb/lib/jackson-mapper-asl-1.9.4.jar:/opt/ycsb/cassandra-binding/lib/netty-handler-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/slf4j-api-1.7.25.jar:/opt/ycsb/cassandra-binding/lib/cassandra-binding-0.18.0-SNAPSHOT.jar:/opt/ycsb/cassandra-binding/lib/cassandra-driver-core-3.0.0.jar:/opt/ycsb/cassandra-binding/lib/netty-buffer-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/netty-transport-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/guava-16.0.1.jar:/opt/ycsb/cassandra-binding/lib/metrics-core-3.1.2.jar:/opt/ycsb/cassandra-binding/lib/netty-codec-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/netty-common-4.0.33.Final.jar site.ycsb.Client -db site.ycsb.db.CassandraCQLClient -s -p hosts=16.0.0.11 -P /opt/ycsb/workloads/workloada -p recordcount=1000 -p operationcount=10000 -p rectime=3000 -p cassandra.connecttimeoutmillis=60000 -p cassandra.readtimeoutmillis=60000 -p cassandra.readconsistencylevel=ONE -p cassandra.writeconsistencylevel=ONE -p cassandra.maxconnections=1 -load
+Command line: -db site.ycsb.db.CassandraCQLClient -s -p hosts=16.0.0.11 -P /opt/ycsb/workloads/workloada -p recordcount=1000 -p operationcount=10000 -p rectime=3000 -p cassandra.connecttimeoutmillis=60000 -p cassandra.readtimeoutmillis=60000 -p cassandra.readconsistencylevel=ONE -p cassandra.writeconsistencylevel=ONE -p cassandra.maxconnections=1 -load
+YCSB Client 0.18.0-SNAPSHOT
+
+Loading workload...
+Starting test.
+2023-01-18 01:39:50:933 0 sec: 0 operations; est completion in 0 second 
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.PlatformDependent0 (file:/opt/ycsb/cassandra-binding/lib/netty-common-4.0.33.Final.jar) to field java.nio.Buffer.address
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.PlatformDependent0
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[Thread-2] INFO io.netty.util.internal.PlatformDependent - Your platform does not provide complete low-level API for accessing direct buffers reliably. Unless explicitly requested, heap buffer will always be preferred to avoid potential system unstability.
+[Thread-2] INFO com.datastax.driver.core.NettyUtil - Did not find Netty's native epoll transport in the classpath, defaulting to NIO.
+[Thread-2] INFO com.datastax.driver.core.policies.DCAwareRoundRobinPolicy - Using data-center name 'datacenter1' for DCAwareRoundRobinPolicy (if this is incorrect, please provide the correct datacenter name with DCAwareRoundRobinPolicy constructor)
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.22.9:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.19.9:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /16.0.0.11:9042 added
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Connected to cluster: K8Demo
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.22.9; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.19.9; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /16.0.0.11; Rack: rack1
+
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+2023-01-18 01:40:00:813 10 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-18 01:40:10:813 20 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-18 01:40:20:813 30 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-18 01:40:30:813 40 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-18 01:40:40:813 50 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-18 01:40:50:813 60 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/16.0.0.11:9042-2, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query INSERT INTO usertable (y_id,field1,field0,field7,field6,field9,field8,field3,field2,field5,field4) VALUES (?,?,?,?,?,?,?,?,?,?,?); is not prepared on /16.0.0.11:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+2023-01-18 01:41:00:813 70 sec: 1000 operations; 100 current ops/sec; [INSERT: Count=1000, Max=60391423, Min=2206, Avg=65365.91, 90=6691, 99=11207, 99.9=126399, 99.99=60391423] 
+2023-01-18 01:41:01:111 70 sec: 1000 operations; 0 current ops/sec; [CLEANUP: Count=1, Max=2246655, Min=2244608, Avg=2245632, 90=2246655, 99=2246655, 99.9=2246655, 99.99=2246655] [INSERT: Count=0, Max=0, Min=9223372036854775807, Avg=NaN, 90=0, 99=0, 99.9=0, 99.99=0] 
+[OVERALL], RunTime(ms), 70298
+[OVERALL], Throughput(ops/sec), 14.225155765455632
+[TOTAL_GCS_Copy], Count, 3
+[TOTAL_GC_TIME_Copy], Time(ms), 67
+[TOTAL_GC_TIME_%_Copy], Time(%), 0.09530854362855273
+[TOTAL_GCS_MarkSweepCompact], Count, 0
+[TOTAL_GC_TIME_MarkSweepCompact], Time(ms), 0
+[TOTAL_GC_TIME_%_MarkSweepCompact], Time(%), 0.0
+[TOTAL_GCs], Count, 3
+[TOTAL_GC_TIME], Time(ms), 67
+[TOTAL_GC_TIME_%], Time(%), 0.09530854362855273
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2245632.0
+[CLEANUP], MinLatency(us), 2244608
+[CLEANUP], MaxLatency(us), 2246655
+[CLEANUP], 95thPercentileLatency(us), 2246655
+[CLEANUP], 99thPercentileLatency(us), 2246655
+[INSERT], Operations, 1000
+[INSERT], AverageLatency(us), 65365.914
+[INSERT], MinLatency(us), 2206
+[INSERT], MaxLatency(us), 60391423
+[INSERT], 95thPercentileLatency(us), 7795
+[INSERT], 99thPercentileLatency(us), 11207
+[INSERT], Return=OK, 1000

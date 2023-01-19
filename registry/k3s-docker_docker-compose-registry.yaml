@@ -1,0 +1,6 @@
+version: '3'
+services:
+  registry.local:
+    image: "registry:2"
+    ports:
+    - 5000:5000

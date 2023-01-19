@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ycsb-benchmark
+  labels:
+    name: ycsb-benchmark
+spec:
+  nodeName: rpicloud
+  containers:
+    - image: 127.0.0.1:5000/ycsb-benchmark
+      name: ycsb-benchmark
+      volumeMounts:
+      - mountPath: /ycsb_outputs
+        name: output
+      - mountPath: /scripts
+        name: scripts
+      imagePullPolicy: Never
+      command: [ "sleep" ]
+      args: [ "infinity" ]
+      resources:
+        requests:
+          memory: "3Gi"
+  restartPolicy: Never
+  volumes:
+  - name: scripts
+    hostPath:
+      path: /home/pi/ycsb/scripts
+      type: Directory
+  - name: output
+    hostPath:
+      path: /home/pi/ycsb/out
+      type: Directory
+

@@ -1,0 +1,138 @@
+/usr/local/openjdk-11/bin/java -cp /opt/ycsb/slf4j-api-1.7.30.jar:/opt/ycsb/slf4j-simple-1.7.30.jar:/opt/ycsb/jdbc-binding/lib/postgresql-42.2.14.jar:/opt/ycsb/cassandra-binding/conf:/opt/ycsb/conf:/opt/ycsb/lib/core-0.18.0-SNAPSHOT.jar:/opt/ycsb/lib/HdrHistogram-2.1.4.jar:/opt/ycsb/lib/htrace-core4-4.1.0-incubating.jar:/opt/ycsb/lib/jackson-core-asl-1.9.4.jar:/opt/ycsb/lib/jackson-mapper-asl-1.9.4.jar:/opt/ycsb/cassandra-binding/lib/netty-handler-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/slf4j-api-1.7.25.jar:/opt/ycsb/cassandra-binding/lib/cassandra-binding-0.18.0-SNAPSHOT.jar:/opt/ycsb/cassandra-binding/lib/cassandra-driver-core-3.0.0.jar:/opt/ycsb/cassandra-binding/lib/netty-buffer-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/netty-transport-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/guava-16.0.1.jar:/opt/ycsb/cassandra-binding/lib/metrics-core-3.1.2.jar:/opt/ycsb/cassandra-binding/lib/netty-codec-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/netty-common-4.0.33.Final.jar site.ycsb.Client -db site.ycsb.db.CassandraCQLClient -s -p hosts=cassandra-0.cassandra.default.svc.cluster.local -P /opt/ycsb/workloads/workloada -p recordcount=100000 -p rectime=3000 -p cassandra.connecttimeoutmillis=60000 -p cassandra.readtimeoutmillis=60000 -p cassandra.readconsistencylevel=ONE -p cassandra.writeconsistencylevel=ONE -p operationcount=1000 -t
+Command line: -db site.ycsb.db.CassandraCQLClient -s -p hosts=cassandra-0.cassandra.default.svc.cluster.local -P /opt/ycsb/workloads/workloada -p recordcount=100000 -p rectime=3000 -p cassandra.connecttimeoutmillis=60000 -p cassandra.readtimeoutmillis=60000 -p cassandra.readconsistencylevel=ONE -p cassandra.writeconsistencylevel=ONE -p operationcount=1000 -t
+YCSB Client 0.18.0-SNAPSHOT
+
+Loading workload...
+Starting test.
+2023-01-19 12:28:24:177 0 sec: 0 operations; est completion in 0 second 
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.PlatformDependent0 (file:/opt/ycsb/cassandra-binding/lib/netty-common-4.0.33.Final.jar) to field java.nio.Buffer.address
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.PlatformDependent0
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[Thread-2] INFO io.netty.util.internal.PlatformDependent - Your platform does not provide complete low-level API for accessing direct buffers reliably. Unless explicitly requested, heap buffer will always be preferred to avoid potential system unstability.
+[Thread-2] INFO com.datastax.driver.core.NettyUtil - Did not find Netty's native epoll transport in the classpath, defaulting to NIO.
+[Thread-2] INFO com.datastax.driver.core.policies.DCAwareRoundRobinPolicy - Using data-center name 'datacenter1' for DCAwareRoundRobinPolicy (if this is incorrect, please provide the correct datacenter name with DCAwareRoundRobinPolicy constructor)
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.1.25:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.24.23:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.17.23:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.15.23:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host cassandra-0.cassandra.default.svc.cluster.local/10.42.21.26:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.18.26:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.19.27:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.20.20:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.14.20:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.16.20:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.23.20:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.22.33:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.0.36:9042 added
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Connected to cluster: K8Demo
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.1.25; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.24.23; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.17.23; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.15.23; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: cassandra-0.cassandra.default.svc.cluster.local/10.42.21.26; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.18.26; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.19.27; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.20.20; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.14.20; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.16.20; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.23.20; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.22.33; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.0.36; Rack: rack1
+
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+2023-01-19 12:28:34:058 10 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:28:44:057 20 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:28:54:057 30 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:29:04:057 40 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:29:14:057 50 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:29:24:057 60 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/10.42.17.23:9042-1, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+2023-01-19 12:29:34:057 70 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:29:44:057 80 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:29:54:057 90 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:30:04:057 100 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:30:14:057 110 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:30:24:057 120 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[cassandra-0.cassandra.default.svc.cluster.local/10.42.21.26:9042-2, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+2023-01-19 12:30:34:057 130 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:30:44:057 140 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:30:54:057 150 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:31:04:057 160 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:31:14:057 170 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:31:24:057 180 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/10.42.19.27:9042-1, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+2023-01-19 12:31:34:057 190 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:31:44:057 200 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:31:54:057 210 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:32:04:056 220 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:32:14:057 230 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:32:24:057 240 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/10.42.14.20:9042-1, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+2023-01-19 12:32:34:057 250 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:32:44:057 260 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:32:54:057 270 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:33:04:057 280 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:33:14:057 290 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:33:24:057 300 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/10.42.23.20:9042-1, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+2023-01-19 12:33:34:056 310 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:33:44:057 320 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:33:54:057 330 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:34:04:057 340 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:34:14:057 350 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:34:24:057 360 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/10.42.0.36:9042-1, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query UPDATE usertable SET field8=? WHERE y_id=?; is not prepared on /10.42.0.36:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query UPDATE usertable SET field8=? WHERE y_id=?; is not prepared on /10.42.17.23:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query UPDATE usertable SET field8=? WHERE y_id=?; is not prepared on cassandra-0.cassandra.default.svc.cluster.local/10.42.21.26:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query UPDATE usertable SET field8=? WHERE y_id=?; is not prepared on /10.42.19.27:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query UPDATE usertable SET field8=? WHERE y_id=?; is not prepared on /10.42.23.20:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query UPDATE usertable SET field8=? WHERE y_id=?; is not prepared on /10.42.14.20:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+2023-01-19 12:34:34:057 370 sec: 678 operations; 67.8 current ops/sec; est completion in 2 minutes [READ: Count=330, Max=214143, Min=3700, Avg=12543.69, 90=18671, 99=37215, 99.9=214143, 99.99=214143] [UPDATE: Count=354, Max=360710143, Min=2924, Avg=1026175.44, 90=10447, 99=58559, 99.9=360710143, 99.99=360710143] 
+2023-01-19 12:34:38:516 374 sec: 1000 operations; 72.2 current ops/sec; [READ: Count=151, Max=27215, Min=3946, Avg=8628.83, 90=13055, 99=20831, 99.9=27215, 99.99=27215] [CLEANUP: Count=1, Max=2263039, Min=2260992, Avg=2262016, 90=2263039, 99=2263039, 99.9=2263039, 99.99=2263039] [UPDATE: Count=165, Max=17327, Min=2942, Avg=4971.75, 90=8311, 99=12751, 99.9=17327, 99.99=17327] 
+[OVERALL], RunTime(ms), 374459
+[OVERALL], Throughput(ops/sec), 2.6705193358952517
+[TOTAL_GCS_Copy], Count, 2
+[TOTAL_GC_TIME_Copy], Time(ms), 52
+[TOTAL_GC_TIME_%_Copy], Time(%), 0.013886700546655308
+[TOTAL_GCS_MarkSweepCompact], Count, 0
+[TOTAL_GC_TIME_MarkSweepCompact], Time(ms), 0
+[TOTAL_GC_TIME_%_MarkSweepCompact], Time(%), 0.0
+[TOTAL_GCs], Count, 2
+[TOTAL_GC_TIME], Time(ms), 52
+[TOTAL_GC_TIME_%], Time(%), 0.013886700546655308
+[READ], Operations, 481
+[READ], AverageLatency(us), 11314.700623700624
+[READ], MinLatency(us), 3700
+[READ], MaxLatency(us), 214143
+[READ], 95thPercentileLatency(us), 20431
+[READ], 99thPercentileLatency(us), 31631
+[READ], Return=OK, 481
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2262016.0
+[CLEANUP], MinLatency(us), 2260992
+[CLEANUP], MaxLatency(us), 2263039
+[CLEANUP], 95thPercentileLatency(us), 2263039
+[CLEANUP], 99thPercentileLatency(us), 2263039
+[UPDATE], Operations, 519
+[UPDATE], AverageLatency(us), 701515.3044315992
+[UPDATE], MinLatency(us), 2924
+[UPDATE], MaxLatency(us), 360710143
+[UPDATE], 95thPercentileLatency(us), 12727
+[UPDATE], 99thPercentileLatency(us), 57663
+[UPDATE], Return=OK, 519

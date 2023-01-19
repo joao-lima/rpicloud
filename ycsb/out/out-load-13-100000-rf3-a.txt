@@ -1,0 +1,164 @@
+/usr/local/openjdk-11/bin/java -cp /opt/ycsb/slf4j-api-1.7.30.jar:/opt/ycsb/slf4j-simple-1.7.30.jar:/opt/ycsb/jdbc-binding/lib/postgresql-42.2.14.jar:/opt/ycsb/cassandra-binding/conf:/opt/ycsb/conf:/opt/ycsb/lib/core-0.18.0-SNAPSHOT.jar:/opt/ycsb/lib/HdrHistogram-2.1.4.jar:/opt/ycsb/lib/htrace-core4-4.1.0-incubating.jar:/opt/ycsb/lib/jackson-core-asl-1.9.4.jar:/opt/ycsb/lib/jackson-mapper-asl-1.9.4.jar:/opt/ycsb/cassandra-binding/lib/netty-handler-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/slf4j-api-1.7.25.jar:/opt/ycsb/cassandra-binding/lib/cassandra-binding-0.18.0-SNAPSHOT.jar:/opt/ycsb/cassandra-binding/lib/cassandra-driver-core-3.0.0.jar:/opt/ycsb/cassandra-binding/lib/netty-buffer-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/netty-transport-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/guava-16.0.1.jar:/opt/ycsb/cassandra-binding/lib/metrics-core-3.1.2.jar:/opt/ycsb/cassandra-binding/lib/netty-codec-4.0.33.Final.jar:/opt/ycsb/cassandra-binding/lib/netty-common-4.0.33.Final.jar site.ycsb.Client -db site.ycsb.db.CassandraCQLClient -s -p hosts=cassandra-0.cassandra.default.svc.cluster.local -P /opt/ycsb/workloads/workloada -p recordcount=100000 -p operationcount=1000 -p rectime=3000 -p cassandra.connecttimeoutmillis=60000 -p cassandra.readtimeoutmillis=60000 -p cassandra.readconsistencylevel=ONE -p cassandra.writeconsistencylevel=ONE -p cassandra.maxconnections=1 -load
+Command line: -db site.ycsb.db.CassandraCQLClient -s -p hosts=cassandra-0.cassandra.default.svc.cluster.local -P /opt/ycsb/workloads/workloada -p recordcount=100000 -p operationcount=1000 -p rectime=3000 -p cassandra.connecttimeoutmillis=60000 -p cassandra.readtimeoutmillis=60000 -p cassandra.readconsistencylevel=ONE -p cassandra.writeconsistencylevel=ONE -p cassandra.maxconnections=1 -load
+YCSB Client 0.18.0-SNAPSHOT
+
+Loading workload...
+Starting test.
+2023-01-19 12:07:17:349 0 sec: 0 operations; est completion in 0 second 
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.PlatformDependent0 (file:/opt/ycsb/cassandra-binding/lib/netty-common-4.0.33.Final.jar) to field java.nio.Buffer.address
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.PlatformDependent0
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[Thread-2] INFO io.netty.util.internal.PlatformDependent - Your platform does not provide complete low-level API for accessing direct buffers reliably. Unless explicitly requested, heap buffer will always be preferred to avoid potential system unstability.
+[Thread-2] INFO com.datastax.driver.core.NettyUtil - Did not find Netty's native epoll transport in the classpath, defaulting to NIO.
+[Thread-2] INFO com.datastax.driver.core.policies.DCAwareRoundRobinPolicy - Using data-center name 'datacenter1' for DCAwareRoundRobinPolicy (if this is incorrect, please provide the correct datacenter name with DCAwareRoundRobinPolicy constructor)
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.1.25:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.24.23:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.17.23:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.15.23:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host cassandra-0.cassandra.default.svc.cluster.local/10.42.21.26:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.18.26:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.19.27:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.20.20:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.14.20:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.16.20:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.23.20:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.22.33:9042 added
+[Thread-2] INFO com.datastax.driver.core.Cluster - New Cassandra host /10.42.0.36:9042 added
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Connected to cluster: K8Demo
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.1.25; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.24.23; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.17.23; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.15.23; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: cassandra-0.cassandra.default.svc.cluster.local/10.42.21.26; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.18.26; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.19.27; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.20.20; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.14.20; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.16.20; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.23.20; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.22.33; Rack: rack1
+
+[Thread-2] INFO site.ycsb.db.CassandraCQLClient - Datacenter: datacenter1; Host: /10.42.0.36; Rack: rack1
+
+DBWrapper: report latency for each error is false and specific error codes to track for latency are: []
+2023-01-19 12:07:27:230 10 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:07:37:229 20 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:07:47:229 30 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:07:57:229 40 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:08:07:229 50 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:08:17:229 60 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/10.42.17.23:9042-1, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+2023-01-19 12:08:27:229 70 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:08:37:229 80 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:08:47:229 90 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:08:57:229 100 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:09:07:229 110 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:09:17:229 120 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[cassandra-0.cassandra.default.svc.cluster.local/10.42.21.26:9042-2, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+2023-01-19 12:09:27:229 130 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:09:37:229 140 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:09:47:229 150 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:09:57:229 160 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:10:07:229 170 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:10:17:229 180 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/10.42.19.27:9042-1, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+2023-01-19 12:10:27:229 190 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:10:37:229 200 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:10:47:229 210 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:10:57:229 220 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:11:07:229 230 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:11:17:229 240 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/10.42.14.20:9042-1, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+2023-01-19 12:11:27:229 250 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:11:37:229 260 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:11:47:228 270 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:11:57:229 280 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:12:07:229 290 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:12:17:229 300 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/10.42.23.20:9042-1, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+2023-01-19 12:12:27:229 310 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:12:37:229 320 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:12:47:229 330 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:12:57:229 340 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:13:07:229 350 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+2023-01-19 12:13:17:229 360 sec: 0 operations; est completion in 106751991167300 days 15 hours 
+[cluster1-nio-worker-1] WARN com.datastax.driver.core.Connection - Timeout while setting keyspace on Connection[/10.42.0.36:9042-1, inFlight=1, closed=false]. This should not happen but is not critical (it will be retried)
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query INSERT INTO usertable (y_id,field1,field0,field7,field6,field9,field8,field3,field2,field5,field4) VALUES (?,?,?,?,?,?,?,?,?,?,?); is not prepared on /10.42.14.20:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query INSERT INTO usertable (y_id,field1,field0,field7,field6,field9,field8,field3,field2,field5,field4) VALUES (?,?,?,?,?,?,?,?,?,?,?); is not prepared on /10.42.19.27:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query INSERT INTO usertable (y_id,field1,field0,field7,field6,field9,field8,field3,field2,field5,field4) VALUES (?,?,?,?,?,?,?,?,?,?,?); is not prepared on /10.42.17.23:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query INSERT INTO usertable (y_id,field1,field0,field7,field6,field9,field8,field3,field2,field5,field4) VALUES (?,?,?,?,?,?,?,?,?,?,?); is not prepared on /10.42.0.36:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query INSERT INTO usertable (y_id,field1,field0,field7,field6,field9,field8,field3,field2,field5,field4) VALUES (?,?,?,?,?,?,?,?,?,?,?); is not prepared on cassandra-0.cassandra.default.svc.cluster.local/10.42.21.26:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+[cluster1-nio-worker-1] INFO com.datastax.driver.core.RequestHandler - Query INSERT INTO usertable (y_id,field1,field0,field7,field6,field9,field8,field3,field2,field5,field4) VALUES (?,?,?,?,?,?,?,?,?,?,?); is not prepared on /10.42.23.20:9042, preparing before retrying executing. Seeing this message a few times is fine, but seeing it a lot may be source of performance problems
+2023-01-19 12:13:27:229 370 sec: 485 operations; 48.5 current ops/sec; est completion in 21 hours 5 minutes [INSERT: Count=486, Max=360972287, Min=4188, Avg=755442.92, 90=15999, 99=164223, 99.9=360972287, 99.99=360972287] 
+2023-01-19 12:13:37:229 380 sec: 1758 operations; 127.3 current ops/sec; est completion in 5 hours 53 minutes [INSERT: Count=1272, Max=327167, Min=3478, Avg=7775.08, 90=11183, 99=21119, 99.9=127615, 99.99=327167] 
+2023-01-19 12:13:47:228 390 sec: 3230 operations; 147.2 current ops/sec; est completion in 3 hours 14 minutes [INSERT: Count=1472, Max=133503, Min=2940, Avg=6737.39, 90=9655, 99=19375, 99.9=127231, 99.99=133503] 
+2023-01-19 12:13:57:228 400 sec: 4810 operations; 158 current ops/sec; est completion in 2 hours 11 minutes [INSERT: Count=1580, Max=549887, Min=2674, Avg=6275.64, 90=8375, 99=18927, 99.9=203775, 99.99=549887] 
+2023-01-19 12:14:07:229 410 sec: 6829 operations; 201.9 current ops/sec; est completion in 1 hour 33 minutes [INSERT: Count=2019, Max=219263, Min=2250, Avg=4917.77, 90=7315, 99=14663, 99.9=22703, 99.99=219263] 
+2023-01-19 12:14:17:228 420 sec: 9257 operations; 242.8 current ops/sec; est completion in 1 hour 8 minutes [INSERT: Count=2428, Max=25775, Min=2031, Avg=4099.38, 90=6315, 99=13615, 99.9=23407, 99.99=25775] 
+2023-01-19 12:14:27:229 430 sec: 11637 operations; 238 current ops/sec; est completion in 54 minutes [INSERT: Count=2380, Max=633343, Min=2050, Avg=4184.02, 90=5619, 99=13215, 99.9=62431, 99.99=633343] 
+2023-01-19 12:14:37:228 440 sec: 14484 operations; 284.7 current ops/sec; est completion in 43 minutes [INSERT: Count=2847, Max=28607, Min=1757, Avg=3498.49, 90=5215, 99=11231, 99.9=22415, 99.99=28607] 
+2023-01-19 12:14:47:229 450 sec: 17383 operations; 289.9 current ops/sec; est completion in 35 minutes [INSERT: Count=2900, Max=27663, Min=1813, Avg=3434.36, 90=5003, 99=12135, 99.9=20943, 99.99=27663] 
+2023-01-19 12:14:57:229 460 sec: 20340 operations; 295.7 current ops/sec; est completion in 30 minutes [INSERT: Count=2957, Max=31791, Min=1807, Avg=3365.61, 90=4891, 99=9375, 99.9=16655, 99.99=31791] 
+2023-01-19 12:15:07:229 470 sec: 23069 operations; 272.9 current ops/sec; est completion in 26 minutes [INSERT: Count=2729, Max=110271, Min=1916, Avg=3645.12, 90=5071, 99=10887, 99.9=31967, 99.99=110271] 
+2023-01-19 12:15:17:229 480 sec: 26028 operations; 295.9 current ops/sec; est completion in 22 minutes [INSERT: Count=2958, Max=47615, Min=1848, Avg=3361.07, 90=4811, 99=9511, 99.9=16263, 99.99=47615] 
+2023-01-19 12:15:27:229 490 sec: 29066 operations; 303.8 current ops/sec; est completion in 19 minutes [INSERT: Count=3039, Max=38335, Min=1675, Avg=3274.98, 90=4859, 99=9679, 99.9=17919, 99.99=38335] 
+2023-01-19 12:15:37:229 500 sec: 32161 operations; 309.5 current ops/sec; est completion in 17 minutes [INSERT: Count=3094, Max=63967, Min=1636, Avg=3215.81, 90=4683, 99=9583, 99.9=18079, 99.99=63967] 
+2023-01-19 12:15:47:229 510 sec: 35206 operations; 304.5 current ops/sec; est completion in 15 minutes [INSERT: Count=3045, Max=82815, Min=1616, Avg=3268.74, 90=4767, 99=9231, 99.9=19599, 99.99=82815] 
+2023-01-19 12:15:57:229 520 sec: 38248 operations; 304.2 current ops/sec; est completion in 14 minutes [INSERT: Count=3042, Max=55071, Min=1538, Avg=3272.9, 90=4871, 99=9999, 99.9=15799, 99.99=55071] 
+2023-01-19 12:16:07:229 530 sec: 41384 operations; 313.6 current ops/sec; est completion in 12 minutes [INSERT: Count=3137, Max=46239, Min=1756, Avg=3170.72, 90=4571, 99=8727, 99.9=23455, 99.99=46239] 
+2023-01-19 12:16:17:229 540 sec: 44388 operations; 300.4 current ops/sec; est completion in 11 minutes [INSERT: Count=3003, Max=70015, Min=1677, Avg=3306.81, 90=4799, 99=9919, 99.9=20207, 99.99=70015] 
+2023-01-19 12:16:27:229 550 sec: 47662 operations; 327.4 current ops/sec; est completion in 10 minutes [INSERT: Count=3274, Max=94143, Min=1458, Avg=3041.9, 90=4419, 99=7963, 99.9=17087, 99.99=94143] 
+2023-01-19 12:16:37:229 560 sec: 50854 operations; 319.2 current ops/sec; est completion in 9 minutes [INSERT: Count=3192, Max=99903, Min=1564, Avg=3116.29, 90=4559, 99=9391, 99.9=17135, 99.99=99903] 
+2023-01-19 12:16:47:228 570 sec: 54024 operations; 317 current ops/sec; est completion in 8 minutes [INSERT: Count=3171, Max=83839, Min=1569, Avg=3138.71, 90=4527, 99=9271, 99.9=19391, 99.99=83839] 
+2023-01-19 12:16:57:229 580 sec: 57168 operations; 314.4 current ops/sec; est completion in 7 minutes [INSERT: Count=3144, Max=35423, Min=1563, Avg=3165.38, 90=4659, 99=8623, 99.9=25087, 99.99=35423] 
+2023-01-19 12:17:07:229 590 sec: 60130 operations; 296.2 current ops/sec; est completion in 6 minutes [INSERT: Count=2962, Max=36991, Min=1744, Avg=3357.6, 90=5003, 99=10631, 99.9=21455, 99.99=36991] 
+2023-01-19 12:17:17:229 600 sec: 63253 operations; 312.3 current ops/sec; est completion in 5 minutes [INSERT: Count=3122, Max=31535, Min=1605, Avg=3187.53, 90=4587, 99=10671, 99.9=21439, 99.99=31535] 
+2023-01-19 12:17:27:229 610 sec: 66393 operations; 314 current ops/sec; est completion in 5 minutes [INSERT: Count=3141, Max=80447, Min=1570, Avg=3171.93, 90=4575, 99=10543, 99.9=20943, 99.99=80447] 
+2023-01-19 12:17:37:229 620 sec: 69589 operations; 319.6 current ops/sec; est completion in 4 minutes [INSERT: Count=3195, Max=44319, Min=1505, Avg=3116.23, 90=4627, 99=10663, 99.9=19471, 99.99=44319] 
+2023-01-19 12:17:47:229 630 sec: 72985 operations; 339.6 current ops/sec; est completion in 3 minutes [INSERT: Count=3397, Max=57055, Min=1448, Avg=2932, 90=4187, 99=10983, 99.9=40991, 99.99=57055] 
+2023-01-19 12:17:57:229 640 sec: 76652 operations; 366.7 current ops/sec; est completion in 3 minutes [INSERT: Count=3667, Max=130559, Min=1276, Avg=2715.76, 90=3985, 99=7475, 99.9=20831, 99.99=130559] 
+2023-01-19 12:18:07:229 650 sec: 80347 operations; 369.5 current ops/sec; est completion in 2 minutes [INSERT: Count=3695, Max=74111, Min=1249, Avg=2694.06, 90=4007, 99=7015, 99.9=20431, 99.99=74111] 
+2023-01-19 12:18:17:229 660 sec: 83398 operations; 305.1 current ops/sec; est completion in 2 minutes [INSERT: Count=3050, Max=492799, Min=1281, Avg=3264.11, 90=4295, 99=11263, 99.9=75711, 99.99=492799] 
+2023-01-19 12:18:27:229 670 sec: 87029 operations; 363.1 current ops/sec; est completion in 1 minute [INSERT: Count=3632, Max=83519, Min=1286, Avg=2742.57, 90=4059, 99=9175, 99.9=25199, 99.99=83519] 
+2023-01-19 12:18:37:229 680 sec: 90867 operations; 383.8 current ops/sec; est completion in 1 minute [INSERT: Count=3838, Max=34911, Min=1273, Avg=2593.57, 90=3993, 99=8375, 99.9=17679, 99.99=34911] 
+2023-01-19 12:18:47:229 690 sec: 94784 operations; 391.7 current ops/sec; est completion in 38 seconds [INSERT: Count=3917, Max=85887, Min=1216, Avg=2541.74, 90=3685, 99=7131, 99.9=31567, 99.99=85887] 
+2023-01-19 12:18:57:229 700 sec: 98769 operations; 398.5 current ops/sec; est completion in 9 second [INSERT: Count=3985, Max=49631, Min=1112, Avg=2498.63, 90=3841, 99=7607, 99.9=20159, 99.99=49631] 
+2023-01-19 12:19:02:444 705 sec: 100000 operations; 236 current ops/sec; [CLEANUP: Count=1, Max=2283519, Min=2281472, Avg=2282496, 90=2283519, 99=2283519, 99.9=2283519, 99.99=2283519] [INSERT: Count=1230, Max=26319, Min=1244, Avg=2369.01, 90=3395, 99=6143, 99.9=12687, 99.99=26319] 
+[OVERALL], RunTime(ms), 705216
+[OVERALL], Throughput(ops/sec), 141.80052636355387
+[TOTAL_GCS_Copy], Count, 92
+[TOTAL_GC_TIME_Copy], Time(ms), 377
+[TOTAL_GC_TIME_%_Copy], Time(%), 0.05345879843905981
+[TOTAL_GCS_MarkSweepCompact], Count, 0
+[TOTAL_GC_TIME_MarkSweepCompact], Time(ms), 0
+[TOTAL_GC_TIME_%_MarkSweepCompact], Time(%), 0.0
+[TOTAL_GCs], Count, 92
+[TOTAL_GC_TIME], Time(ms), 377
+[TOTAL_GC_TIME_%], Time(%), 0.05345879843905981
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 2282496.0
+[CLEANUP], MinLatency(us), 2281472
+[CLEANUP], MaxLatency(us), 2283519
+[CLEANUP], 95thPercentileLatency(us), 2283519
+[CLEANUP], 99thPercentileLatency(us), 2283519
+[INSERT], Operations, 100000
+[INSERT], AverageLatency(us), 6983.56677
+[INSERT], MinLatency(us), 1112
+[INSERT], MaxLatency(us), 360972287
+[INSERT], 95thPercentileLatency(us), 6511
+[INSERT], 99thPercentileLatency(us), 11711
+[INSERT], Return=OK, 100000
