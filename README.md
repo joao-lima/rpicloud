@@ -256,7 +256,7 @@ pi@rpicloud:~ $ kubectl get logs cassandra-12
 
 ## Imagens Docker customizadas
 
-Kubernetes é compatível com imagens Docker mas é precisa alguns passos para usar uma imagem criada localmente com Docker. Por exemplo, a imagem do benchmark usado foi criada do arquivo [Dockerfile](./ycsb/Docker/Dockerfile)
+Kubernetes é compatível com imagens Docker mas é preciso alguns passos para usar uma imagem criada localmente com Docker. Por exemplo, a imagem do benchmark usado foi criada do arquivo [Dockerfile](./ycsb/Docker/Dockerfile)
 ```
 pi@rpicloud:~ $ docker build -t ycsb-benchmark  ./ycsb/Docker
 ```
@@ -412,7 +412,7 @@ Keyspace : ycsb
 ```
 Ou os logs de execução do carregamento:
 ```
-pi@rpicloud:~ $ cat ycsb/out/out-load-13-100000-rf3-a.txt 
+pi@rpicloud:~ $ cat ycsb/out/cassandra-load-13-100000-rf3-a.txt 
 ```
 
 A  execução do benchmark para medidas pode ser por exemplo:
@@ -422,7 +422,7 @@ root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.s
 ```
 Onde o penúltimo argumento é o número da repetição salvo no arquivo:
 ```
-pi@rpicloud:~ $ cat ycsb/out/out-13-100000-rf3-a-1.txt 
+pi@rpicloud:~ $ cat ycsb/out/cassandra-13-100000-rf3-a-1.txt 
 ```
 
 ## Storage
@@ -468,3 +468,75 @@ spec:
 ```
 O armazenamento será criado em cada nó físico que o pod executar.
 
+
+## Execução de experimentos
+
+Os experimentos devem ter pelo menos 30 repetições em cada configuração. Por exemplo, rodar um experimentos com tamanho `1000000`, workload `a`, `13` nós  e `3` replicas:
+```
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 1 3
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 2 3
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 3 3
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 4 3
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 5 3
+........
+root@ycsb-benchmark:/# /scripts/cassandra_run.sh cassandra-0.cassandra.default.svc.cluster.local a 1000000 13 30 3
+```
+Os resultados ficam disponíveis no diretório de saida:
+```
+pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-1.txt 
+pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-2.txt 
+pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-3.txt 
+....
+pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-30.txt 
+```
+
+A [dissertação do Lucas Ferreira](https://repositorio.ufsm.br/handle/1/26668) usou os parêmtros de execução:
+- Tamanho: 1000000
+- Workloads: a b c d
+- Replicas: 1, 2 e 3
+- Nós: 15
+
+A métrica considerada será a média da **vazão** (ops/sec) que aparece como na linha abaixo:
+```
+[OVERALL], Throughput(ops/sec), 2.6705193358952517
+```
+
+O script abaixo foi usado para resumir os resultados dos experimentos. Ele gera um CSV com outras informações para gerar os gráficos de resultados. Note que ele não faz qualquer análise estatística:
+```sh
+#!/bin/bash
+
+sizes="1000000 "
+replicas="1 2 3"
+runtime="cassandra hbase citus"
+
+echo "DB,Replication,Index,Workload,Size,RunTime,Throughput,ReadLatency,WriteLatency"
+for rt in $runtime
+do
+  for w in a b c d
+  do
+    for s in $sizes
+    do
+      for rf in $replicas
+      do
+        for i in $(seq 1 30)
+        do
+          arquivo=
+          if [ "$rt" = "citus" ]; then
+            # citus-exec-14-1000000-d-6-rf_1-bs_7000-fs_3000.txt
+            arquivo="$rt-exec-14-${s}-${w}-${i}-rf_${rf}-bs_7000-fs_3000.txt"
+          else
+    #      hbase-exec-15-1000000-b-22-rf_1.txt
+            arquivo="$rt-exec-15-${s}-${w}-${i}-rf_${rf}.txt"
+          fi
+          tempo=$(grep RunTime $arquivo | cut -d ',' -f3)
+          vazao=$(grep Throughput $arquivo | cut -d ',' -f3)
+          leitura=$(grep "\[READ\]" $arquivo |grep AverageLatency|cut -d ',' -f3)
+          escrita=$(grep -e "\[UPDATE\]" -e "\[INSERT\]" $arquivo |grep AverageLatency |cut -d ',' -f3)
+          #echo out-15-${s}-${w}-${i}.txt $w,$s,$tempo,$vazao,$leitura,$escrita | sed 's/ //g'
+          echo $rt,$rf,$i,$w,$s,$tempo,$vazao,$leitura,$escrita | sed 's/ //g'
+        done
+      done
+    done
+  done
+done
+```

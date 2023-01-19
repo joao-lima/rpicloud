@@ -21,8 +21,8 @@ $YCSB_HOME/bin/ycsb run cassandra-cql -s \
 -p cassandra.writeconsistencylevel=ONE \
 -p operationcount=1000 \
 -cp $CLASSPATH \
-> /ycsb_outputs/out-$nodes-$recordcount-rf$rf-$workload-$exe.txt 2>&1
+> /ycsb_outputs/cassandra-$nodes-$recordcount-rf$rf-$workload-$exe.txt 2>&1
 
-chmod 777 /ycsb_outputs/out-$nodes-$recordcount-rf$rf-$workload-$exe.txt
+chmod 777 /ycsb_outputs/cassandra-$nodes-$recordcount-rf$rf-$workload-$exe.txt
 
 echo "[RUN Script] Finished!"

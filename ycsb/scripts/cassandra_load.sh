@@ -47,10 +47,10 @@ $YCSB_HOME/bin/ycsb load cassandra-cql -s \
 -p cassandra.writeconsistencylevel=ONE \
 -p cassandra.maxconnections=1 \
 -cp $CLASSPATH \
-> /ycsb_outputs/out-load-$nodes-$recordcount-rf$rf-$workload.txt 2>&1
+> /ycsb_outputs/cassandra-load-$nodes-$recordcount-rf$rf-$workload.txt 2>&1
 
 #-p operationcount=10000 \
 
-chmod 777 /ycsb_outputs/out-load-$nodes-$recordcount-rf$rf-$workload.txt
+chmod 777 /ycsb_outputs/cassandra-load-$nodes-$recordcount-rf$rf-$workload.txt
 
 echo "[Load Script] Load finished!"
