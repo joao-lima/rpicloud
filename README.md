@@ -44,7 +44,7 @@ pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-3.txt
 pi@rpicloud:~ $ cat ycsb/out/cassandra-13-1000000-rf3-a-30.txt 
 ```
 
-A [dissertação do Lucas Ferreira](https://repositorio.ufsm.br/handle/1/26668) usou os parêmtros de execução:
+A [dissertação do Lucas Ferreira](https://repositorio.ufsm.br/handle/1/26668) usou os parêmetros de execução:
 - Tamanho: 1000000
 - Workloads: a b c d
 - Replicas: 1, 2 e 3
