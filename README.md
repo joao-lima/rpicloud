@@ -51,7 +51,7 @@ pi@rpicloud:~ $ kubectl -n kubernetes-dashboard create token admin-user
 
 ## Cassandra cluster
 
-O [cluster Cassandra](https://kubernetes.io/docs/tutorials/stateful-application/cassandra/) 
+O [Cassandra](https://kubernetes.io/docs/tutorials/stateful-application/cassandra/) é um banco de dados distribuído NoSQL com topologia de anel. É possível executar um cluster com Kubernetes criando um serviço ligado a múltiplos pods.
 
 Primeiro é preciso criar um serviço *headless* [cassandra-service.yaml](./cassandra/cassandra-service.yaml) para criar os pods de execução:
 ```
